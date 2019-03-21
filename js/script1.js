@@ -150,7 +150,7 @@ window.addEventListener("DOMContentLoaded", () => {
   // FOOTER FORM
   let formContact = document.getElementById('form'),
     inputContact = formContact.getElementsByTagName('input');
-    inputContact[1].onkeyup = function () {
+  inputContact[1].onkeyup = function () {
     this.value = this.value.replace(/[^(\d)|(,)?+]/g, "");
   };
 
@@ -159,27 +159,21 @@ window.addEventListener("DOMContentLoaded", () => {
     formContact.appendChild(statusMessage);
     statusMessage.style.paddingTop = '20px';
     statusMessage.style.color = '#c78030';
-console.log(formContact);
-
 
     if (phonenumber(inputContact[1]) == true) {
       let request = new XMLHttpRequest();
       request.open('POST', 'server.php');
-      request.setRequestHeader('Content-type', "application/json; charset=utf-8");
+      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
 
       let formData = new FormData(formContact);
-      console.log(formData);
-      
       let obj = {};
       formData.forEach(function (value, key) {
         obj[key] = value;
       });
       let json = JSON.stringify(obj);
       request.send(json);
-      
-      
       request.addEventListener('readystatechange', function () {
-        if (request.readyState < 4) {console.log(request);
+        if (request.readyState < 4) {
           statusMessage.innerHTML = message.loading;
         } else if (request.readyState === 4 && request.status == 200) {
           statusMessage.innerHTML = message.success;
